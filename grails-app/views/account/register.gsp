@@ -5,12 +5,12 @@
 </head>
 <body>
     <h2>Register here!</h2>
-    <form>
+    <g:form action="createStudent">
         <p>
-            <input type="text" placeholder="Enter username">
+            <g:textField name="username" placeholder="Enter username"/>
         </p>
         <p>
-            <input type="password" placeholder="Enter password">
+            <g:passwordField name="password" placeholder="Enter password"/>
         </p>
         <p>
             Country:
@@ -28,8 +28,20 @@
             />
         </p>
         <p>
-            <input type="submit" value="Register">
+            Gender:
+            %{-- <g:each var="gender" in="${genders}">
+                <input type="radio" name="gender" value="${gender.key}">${gender.value}
+            </g:each> --}%
+            <g:radioGroup
+                    name="gender"
+                    values="${genders.keySet()}"
+                    labels="${genders.values()}" value="F">
+                    ${it.radio}${it.label}
+            </g:radioGroup>
         </p>
-    </form>
+        <p>
+            <g:submitButton name="submit" value="Register"/>
+        </p>
+    </g:form>
 </body>
 </html>

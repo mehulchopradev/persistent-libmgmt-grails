@@ -4,6 +4,11 @@
     <title>Welcome to Library Mgmt application :: Login</title>
 </head>
 <body>
+    <g:if test="${params.regSuccess}">
+        <div class="success">
+            Register success! Student created with id ${params.regSuccess}. Please login
+        </div>
+    </g:if>
     <h2>Login here!(${greeting})</h2>
     <form>
         <p>
