@@ -58,6 +58,26 @@ class AccountController {
 
         // render "Register success!!! Student created with id ${s1.id}"
 
-        redirect action: 'login', params: ['regSuccess': s1.id]
+        // redirect action: 'login', params: ['regSuccess': s1.id]
+
+        // flash implicit object
+            // stores any data at the server side for the request that comes from the client
+            // scope of this data is till the next HTTP request completes
+        flash.newStudentId = s1.id
+        redirect action: 'login'
+    }
+
+    def auth() {
+        def username = params['username']
+        def password = params['password']
+
+        // verify whether the database has a Student with the above username and password
+        def student = Student.findByUsernameAndPassword(username, password)
+        if (!student) {
+            flash.errorMsg = 'Invalid username or password'
+            redirect action: 'login'
+        } else {
+            redirect controller: 'home' // by default action should be `index`
+        }
     }
 }

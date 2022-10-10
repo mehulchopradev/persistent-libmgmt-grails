@@ -21,3 +21,10 @@ footer {
     background-color: green;
     font-weight: 800;
 }
+
+.error {
+    width: 100%;
+    padding: 10px;
+    background-color: red;
+    font-weight: 800;
+}
