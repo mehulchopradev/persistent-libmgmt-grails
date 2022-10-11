@@ -28,3 +28,12 @@ footer {
     background-color: red;
     font-weight: 800;
 }
+
+table {
+    margin: auto;
+}
+
+.account-actions {
+    margin: 10px;
+    float: right;
+}

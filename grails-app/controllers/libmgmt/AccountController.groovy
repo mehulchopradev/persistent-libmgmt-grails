@@ -15,6 +15,10 @@ class AccountController {
 
     // /account/login
     def login() {
+        if (session.loggedInStudent) {
+            redirect controller: 'home'
+        }
+
         def now = LocalTime.now()
         def hour = now.hour
         def message
@@ -31,6 +35,10 @@ class AccountController {
 
     // /account/register
     def register() {
+        if (session.loggedInStudent) {
+            redirect controller: 'home'
+        }
+
         // groovy code to get the countries from the database
         def countries = ['IN': 'India', 'US': 'USA', 'AU': 'Australia', 'JP': 'Japan']
 
@@ -77,7 +85,15 @@ class AccountController {
             flash.errorMsg = 'Invalid username or password'
             redirect action: 'login'
         } else {
+            // session scope -- HttpSession
+            // session implicit object
+            session.loggedInStudent = student
             redirect controller: 'home' // by default action should be `index`
         }
+    }
+
+    def logout() {
+        session.invalidate()
+        redirect action: 'login'
     }
 }
