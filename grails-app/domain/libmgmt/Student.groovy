@@ -10,6 +10,11 @@ class Student {
     Character gender
     String country
 
+    // Contact contact
+
+    // a Student can have a Contact - 1 : 1
+    static hasOne = [contact: Contact]
+
     static constraints = {
         username maxSize: 50, email: true, unique: true
         password maxSize: 20

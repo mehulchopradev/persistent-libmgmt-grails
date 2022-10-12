@@ -9,7 +9,9 @@
     <g:if test="${session.loggedInStudent}">
         <div class="account-actions">
             <span>${session.loggedInStudent.username}</span>
-            <a href="#">Edit profile</a>
+            <g:link controller="account" action="view">
+                Edit profile
+            </g:link>
             <g:link controller="account" action="logout">
                 Logout
             </g:link>

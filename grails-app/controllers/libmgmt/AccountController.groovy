@@ -96,4 +96,33 @@ class AccountController {
         session.invalidate()
         redirect action: 'login'
     }
+
+    def view() {
+        // groovy code to get the countries from the database
+        def countries = ['IN': 'India', 'US': 'USA', 'AU': 'Australia', 'JP': 'Japan']
+
+        // groovy code to get the genders from the database
+        def genders = ['M': 'Male', 'F': 'Female']
+
+        [countries: countries, genders: genders]
+    }
+
+    def updateStudent() {
+        // Update the Student domain entity
+        def student = session.loggedInStudent
+
+        // add it to the hibernate session
+        student.attach()
+
+        student.username = params['username']
+        student.password = params['password']
+        student.country = params['country']
+        student.gender = params['gender']
+
+        // dirty checking
+
+        // student.save(flush: true)
+
+        redirect action: 'view'
+    }
 }
