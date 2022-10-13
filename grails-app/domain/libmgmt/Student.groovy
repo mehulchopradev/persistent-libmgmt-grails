@@ -19,5 +19,6 @@ class Student {
         username maxSize: 50, email: true, unique: true
         password maxSize: 20
         country maxSize: 4, nullable: true
+        contact nullable: true
     }
 }

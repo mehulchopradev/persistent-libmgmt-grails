@@ -32,6 +32,18 @@
             </g:radioGroup>
         </p>
         <p>
+            <g:textField
+                    name="contact.mobile"
+                    placeholder="Enter mobile"
+                    value="${session.loggedInStudent.contact?.mobile}"/>
+        </p>
+        <p>
+            <g:textArea
+                    name="contact.address"
+                    placeholder="Enter full address"
+                    value="${session.loggedInStudent.contact?.address}"/>
+        </p>
+        <p>
             <g:submitButton name="submit" value="Update"/>
         </p>
     </g:form>

@@ -1,6 +1,7 @@
 package libmgmt
 
 import java.time.LocalTime
+import grails.validation.ValidationException
 
 class AccountController {
 
@@ -114,14 +115,22 @@ class AccountController {
         // add it to the hibernate session
         student.attach()
 
-        student.username = params['username']
+        /* student.username = params['username']
         student.password = params['password']
         student.country = params['country']
-        student.gender = params['gender']
+        student.gender = params['gender'] */
+
+        student.properties = params
 
         // dirty checking
-
-        // student.save(flush: true)
+        try {
+            student.save(flush: true, failOnError: true) // adds the entity to the hibernate session
+        } catch(ValidationException e) {
+            // exception thrown and caught here only when failOnError is true
+            e.printStackTrace()
+            render "Error in updating profile"
+            return
+        }
 
         redirect action: 'view'
     }

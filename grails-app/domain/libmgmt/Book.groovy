@@ -7,6 +7,11 @@ class Book {
     String title
     Integer pages
     Double price
+    PublicationHouse publicationHouse
+
+    // belongs to a single publication house *:1
+
+    static belongsTo = [PublicationHouse]
 
     static constraints = {
         title maxSize: 50
