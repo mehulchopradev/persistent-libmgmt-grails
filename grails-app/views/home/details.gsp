@@ -11,5 +11,10 @@
         <i>Price: ${book.price}</i><br>
         <i>Pages: ${book.pages}</i>
     </div>
+    <div>
+        <h2>Publication house details</h2>
+        <p>Name: ${book.publicationHouse.name}</p>
+        <p>Ratings: ${book.publicationHouse.ratings}</p>
+    </div>
 </body>
 </html>

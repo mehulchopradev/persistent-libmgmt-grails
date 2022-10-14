@@ -9,16 +9,16 @@ class PublicationHouse {
     // can publish many books - 1:*
 
     // hasMany relationship is always lazy
-    static hasMany = [books: Book]
+    static hasMany = [books: Book] // addTo*, removeFrom* -- addToBooks(b), removeFromBooks(b)
 
     static constraints = {
         name maxSize: 20, unique: true
         ratings range: 1..5
     }
 
-    static mapping = {
+    /* static mapping = {
         books lazy: false, fetch: 'join'
-    }
+    } */
 
     String toString() {
         this.name
