@@ -17,7 +17,9 @@ class Student {
 
     // a Student can issue multiple Books - 1 : *
     // by default lazy
-    static hasMany = [issuedBooks: Book] // addTo* - addToIssuedBooks(b), removeFrom* - removeFromIssuedBooks(b)
+    // static hasMany = [issuedBooks: Book] // addTo* - addToIssuedBooks(b), removeFrom* - removeFromIssuedBooks(b)
+
+    static hasMany = [booksIssued: BookIssued]
 
     static constraints = {
         username maxSize: 50, email: true, unique: true

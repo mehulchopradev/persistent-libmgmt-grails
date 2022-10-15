@@ -7,6 +7,8 @@ class AccountController {
 
     static layout = 'public'
 
+    def greetingsService
+
     def index() { }
 
     // controller can have multiple action functions
@@ -20,18 +22,13 @@ class AccountController {
             redirect controller: 'home'
         }
 
-        def now = LocalTime.now()
-        def hour = now.hour
-        def message
-        if (hour > 0 && hour < 12) {
-            message = 'Good morning'
-        } else if (hour >= 12 && hour < 16) {
-            message = 'Good afternoon'
-        } else {
-            message = 'Good evening'
-        }
+        // avoid!!!
+        // def message = new GreetingsService().greetingOfTheDay()
 
-        [greeting: message]
+        // Dependency injection (DI) --- Inversion of control (IOC)
+        // Spring container --- Manages the lifecyle of the spring beans (objects)
+
+        [greeting: greetingsService.greetingOfTheDay()]
     }
 
     // /account/register

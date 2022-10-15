@@ -10,11 +10,18 @@ class Book {
     PublicationHouse publicationHouse
     Integer noOfCopies
 
+    Boolean isIssued // transient
+
     // belongs to a single publication house *:1
-    static belongsTo = [PublicationHouse, Student]
+    // static belongsTo = [PublicationHouse, Student]
+    static belongsTo = [PublicationHouse]
 
     // A Book can be issued to multiple Students - 1 : *
-    static hasMany = [issuedStudents: Student]
+    // static hasMany = [issuedStudents: Student]
+
+    static hasMany = [studentsIssued: BookIssued]
+
+    static transients = ['isIssued']
 
     static constraints = {
         title maxSize: 50
