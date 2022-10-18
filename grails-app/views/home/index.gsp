@@ -12,6 +12,7 @@
                 <td>Title</td>
                 <td></td>
                 <td></td>
+                <td></td>
             </tr>
         </thead>
         <tbody>
@@ -35,6 +36,13 @@
                                 Issue book
                             </g:link>
                         </g:else>
+                    </td>
+                    <td>
+                        <g:if test="${book.isIssued}">
+                            <g:link action="showTransferPage" id="${book.id}">
+                                Transfer book
+                            </g:link>
+                        </g:if>
                     </td>
                 </tr>
             </g:each>

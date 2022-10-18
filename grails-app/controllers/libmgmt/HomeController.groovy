@@ -8,6 +8,8 @@ class HomeController {
 
     GreetingsService greetingsService
 
+    HomeService homeService
+
     def index() {
         def books = Book.list(sort: 'id', order: 'desc')
 
@@ -37,15 +39,17 @@ class HomeController {
     def issueBook() {
         def bookId = params.id
         def student = session.loggedInStudent
-
         def book = Book.get bookId
 
-        def bi = new BookIssued(book: book, student: student, issuedDate: new Date())
         try {
-            bi.save flush: true, failOnError: true
+            homeService.issueBook(book, student)
+        } catch (IllegalStateException e) {
+            e.printStackTrace()
+            render status: 409, text: e.message
+            return
         } catch (err) {
             err.printStackTrace()
-            render "Error in issuing book"
+            render status: 500, text: 'Something went wrong'
             return
         }
 
@@ -57,14 +61,47 @@ class HomeController {
         def book = Book.get bookId
         def student = session.loggedInStudent
 
-        def bi = BookIssued.findByBookAndStudentAndReturnDate book, student, null
-        bi.returnDate = new Date()
-
         try {
-            bi.save flush: true, failOnError: true
+            homeService.returnBook(book, student)
+        } catch (IllegalStateException e) {
+            e.printStackTrace()
+            render status: 409, text: e.message
+            return
         } catch (err) {
             err.printStackTrace()
-            render "Error in returning a book"
+            render status: 500, text: 'Something went wrong'
+            return
+        }
+
+        redirect action: 'index'
+    }
+
+    def showTransferPage() {
+        def bookId = params.id
+        def student = session.loggedInStudent
+
+        def students = Student.findAllByIdNotEqual student.id
+
+        [book: Book.get(bookId), students: students]
+    }
+
+    def performTransfer() {
+        def bookId = params.bookId
+        def toStudentId = params.studentId
+
+        def book = Book.get bookId
+        def fromStudent = session.loggedInStudent
+        def toStudent = Student.get toStudentId
+
+        try {
+            homeService.transferBook(book, fromStudent, toStudent)
+        } catch (IllegalStateException e) {
+            e.printStackTrace()
+            render status: 409, text: e.message
+            return
+        } catch (err) {
+            err.printStackTrace()
+            render status: 500, text: 'Something went wrong'
             return
         }
 
