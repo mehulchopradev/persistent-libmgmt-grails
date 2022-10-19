@@ -5,7 +5,7 @@
 </head>
 <body>
     <h2>Welcome!!!</h2>
-    <g:form action="updateStudent">
+    <g:uploadForm action="updateStudent">
         <p>
             <g:textField name="username" placeholder="Enter username" value="${session.loggedInStudent.username}"/>
         </p>
@@ -44,8 +44,11 @@
                     value="${session.loggedInStudent.contact?.address}"/>
         </p>
         <p>
+            <input type="file" name="profilePic"/>
+        </p>
+        <p>
             <g:submitButton name="submit" value="Update"/>
         </p>
-    </g:form>
+    </g:uploadForm>
 </body>
 </html>

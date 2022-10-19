@@ -109,6 +109,11 @@ class AccountController {
         // Update the Student domain entity
         def student = session.loggedInStudent
 
+        def file = request.getFile('profilePic')
+        if (!file.empty) {
+            file.transferTo(new File("/Users/mehulchopra/Downloads/${student.id}.jpg"))
+        }
+
         // add it to the hibernate session
         student.attach()
 
