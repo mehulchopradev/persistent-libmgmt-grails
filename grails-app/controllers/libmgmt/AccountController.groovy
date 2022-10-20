@@ -1,5 +1,7 @@
 package libmgmt
 
+import org.springframework.dao.OptimisticLockingFailureException
+
 import java.time.LocalTime
 import grails.validation.ValidationException
 
@@ -132,8 +134,19 @@ class AccountController {
             e.printStackTrace()
             render "Error in updating profile"
             return
+        } catch(OptimisticLockingFailureException e) {
+            e.printStackTrace()
+            student.refresh() // re reads the latest changes from the database and updates the student domain instance
+            render "Oops someone else updated whilst you were updating. Please reload and try again"
         }
 
         redirect action: 'view'
+    }
+
+    def profileImage() {
+        def student = session.loggedInStudent
+        // Try out!
+        // For a user with no uploaded pic, send in the response a no image dummy pic
+        render file: new File("/Users/mehulchopra/Downloads/${student.id}.jpg"), contentType: 'image/*'
     }
 }

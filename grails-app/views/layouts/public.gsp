@@ -8,6 +8,7 @@
 <body>
     <g:if test="${session.loggedInStudent}">
         <div class="account-actions">
+            <img src="/account/profileImage" class="profile"/>
             <span>${session.loggedInStudent.username}</span>
             <g:link controller="account" action="view">
                 Edit profile
@@ -17,7 +18,7 @@
             </g:link>
         </div>
     </g:if>
-    <asset:image src="library-banner.jpeg" />
+    <asset:image src="library-banner.jpeg" class="banner" />
     <g:layoutBody />
     <footer>
         Copyright 2022. All Rights Reserved

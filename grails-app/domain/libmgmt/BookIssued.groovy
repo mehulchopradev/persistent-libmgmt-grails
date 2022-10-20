@@ -23,6 +23,6 @@ class BookIssued implements Serializable {
 
     @Override
     String toString() {
-        book.id
+        "${book.id}-${this.issuedDate}"
     }
 }
