@@ -5,6 +5,14 @@
 </head>
 <body>
     <h2>Register here!</h2>
+    %{-- <g:renderErrors bean="${student}"/> --}%
+    <g:hasErrors bean="${student}">
+        <g:eachError>
+            <div>
+                <g:message error="${it}"/>
+            </div>
+        </g:eachError>
+    </g:hasErrors>
     <g:form action="createStudent">
         <p>
             <g:textField name="username" placeholder="Enter username"/>

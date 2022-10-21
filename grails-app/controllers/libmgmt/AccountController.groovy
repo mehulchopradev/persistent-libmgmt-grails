@@ -62,7 +62,17 @@ class AccountController {
         // s1.save() // does not immediately hit the database with the insert query. Mostly does it after the response of this action
         // is sent to the client
 
-        s1.save(flush: true) // immediately hit the database with the insert query
+        try {
+            s1.save(flush: true, failOnError: true) // immediately hit the database with the insert query
+        } catch (err) {
+            // groovy code to get the countries from the database
+            def countries = ['IN': 'India', 'US': 'USA', 'AU': 'Australia', 'JP': 'Japan']
+
+            // groovy code to get the genders from the database
+            def genders = ['M': 'Male', 'F': 'Female']
+            render view: 'register', model: [student: s1, countries: countries, genders: genders]
+            return
+        }
 
         // render "Register success!!! Student created with id ${s1.id}"
 

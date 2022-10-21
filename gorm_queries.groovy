@@ -1,5 +1,6 @@
 import libmgmt.Student
 import libmgmt.Book
+import libmgmt.PublicationHouse
 // import java.time.LocalDate
 import libmgmt.BookIssued
 
@@ -49,3 +50,107 @@ def d2 = c.getTime()
 
 def b4 = BookIssued.findAllByIssuedDateBetween d1, d2
 println b4
+
+// where()
+/* def males = Student.where {
+    gender == 'M'
+}.findAll() */
+// println males
+
+def usFemales = Student.where {
+    gender == 'F' && country == 'US'
+}.findAll()
+println usFemales
+
+def books = Book.where {
+    price > 500 && pages < 1000
+}.findAll()
+println books
+
+def usAuStudents = Student.where {
+    country in ['US', 'AU']
+}.findAll()
+println usAuStudents
+
+def males = Student.males.findAll()
+def females = Student.females.count()
+println males
+println females
+
+println Book.expensive.list()
+
+println Book.where {
+    publicationHouse.ratings > 3
+}.list()
+
+/* println PublicationHouse.where {
+    books.price > 1000 && books.pages < 500
+}.list() */
+
+println PublicationHouse.where {
+    books { price > 1000 && pages < 500 }
+}.list()
+
+
+println Book.where {
+    price > avg(price)
+}.list()
+
+
+// criteria queries
+def criteria = PublicationHouse.createCriteria()
+def results = criteria {
+    gt('ratings', 3)
+}
+println results
+
+criteria = Book.createCriteria()
+results = criteria {
+    gt('price', 1000.0d)
+    lt('pages', 500)
+}
+println results
+
+criteria = Student.createCriteria()
+results = criteria {
+    or {
+        eq('gender', 'F' as Character)
+        eq('country', 'US')
+    }
+    order('id', 'desc')
+}
+println results
+
+
+criteria = Book.createCriteria()
+results = criteria {
+    publicationHouse {
+        gt('ratings', 3)
+    }
+    order('title', 'asc')
+}
+println results
+
+/* criteria = PublicationHouse.createCriteria()
+results = criteria {
+    books {
+        gt('price', 1000.0d)
+        lt('pages', 500)
+    }
+}
+println results */
+
+// HQL (Hibernate query language)
+results = Book.findAll("from Book as b")
+println results
+
+results = PublicationHouse.findAll("from PublicationHouse as p where p.ratings > :ratings", [ratings: 3])
+println results
+
+results = Book.findAll("""
+    from Book as b 
+        where 
+        b.price > :price 
+        and 
+        b.pages < :pages""", [price: 1000.0d, pages: 500])
+println results

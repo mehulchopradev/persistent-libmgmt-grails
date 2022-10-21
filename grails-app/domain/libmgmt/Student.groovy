@@ -27,4 +27,8 @@ class Student {
         country maxSize: 4, nullable: true
         contact nullable: true
     }
+
+    static def males = Student.where { gender == 'M' }
+
+    static def females = Student.where { gender == 'F' }
 }

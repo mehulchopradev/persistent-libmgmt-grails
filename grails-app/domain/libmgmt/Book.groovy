@@ -32,4 +32,6 @@ class Book {
     static mapping = {
         publicationHouse lazy: false, fetch: 'join'
     }
+
+    static def expensive = Book.where { price > 1000 && pages < 500 }
 }
